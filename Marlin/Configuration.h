@@ -1433,7 +1433,7 @@
 //
 // Note: Usually sold with a white PCB.
 //
-//#define REPRAP_DISCOUNT_SMART_CONTROLLER
+#define REPRAP_DISCOUNT_SMART_CONTROLLER
 
 //
 // GADGETS3D G3D LCD/SD Controller
@@ -1545,10 +1545,24 @@
 //
 //#define OLED_PANEL_TINYBOY2
 
-// no panel but just lcd from rwg42985
-#ifdef ULTRA_LCD
-  #define LCD_WIDTH 16
-  #define LCD_HEIGHT 2
+//automatic expansion
+#if defined(ULTIMAKERCONTROLLER) || defined(REPRAP_DISCOUNT_SMART_CONTROLLER)
+ #define ULTIPANEL
+ #define NEWPANEL
+#endif
+
+#ifdef ULTIPANEL
+  #define NEWPANEL  //enable this if you have a click-encoder panel
+  #define SDSUPPORT
+  #define ULTRA_LCD
+  #define LCD_WIDTH 20
+  #define LCD_HEIGHT 4
+
+#else // no panel but just lcd from rwg42985
+  #ifdef ULTRA_LCD
+    #define LCD_WIDTH 16
+    #define LCD_HEIGHT 2
+  #endif
 #endif
 
 //=============================================================================
